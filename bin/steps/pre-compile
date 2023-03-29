@@ -9,6 +9,8 @@ copy_from_server() {
   local src 
   local dist
 
+  ls "$BUILD_DIR" -la
+
   src="$BUILD_DIR/server/$name"
   dist="$BUILD_DIR/$name"
 
