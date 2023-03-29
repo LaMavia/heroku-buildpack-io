@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+install_nodejs() {
+  local dir="${1:?}"
+  local url='https://nodejs.org/dist/v18.15.0/node-v18.15.0-linux-x64.tar.xz'
+
+  if [[ "$STACK" == "heroku-18" ]]; then
+    puts-warn "Unsupported heroku stack: $STACK"
+    exit 1
+  fi
+
+  puts-step "Downloading and installing node from $url"
+  code=$(curl "$url" -L --silent --fail --retry 5 --retry-max-time 15 --retry-connrefused --connect-timeout 5 -o /tmp/node.tar.gz --write-out "%{http_code}")
+
+  if [ "$code" != "200" ]; then
+    puts-warn "Unable to download node: $code" 
+    exit 1
+  fi
+
+  rm -rf "${dir:?}"/*
+  tar xzf /tmp/node.tar.gz --strip-components 1 -C "$dir"
+  chmod +x "$dir"/bin/*
+}
+
+build_front() {
+  local dir="${1:?}"
+
+  cd "$dir" || exit 1
+  puts-step "Installing npm dependencies..."
+  if ! npm i .; then
+    puts-warn "Failed to install npm dependencies."
+    exit 1
+  fi
+
+  puts-step "Building client..."
+  if ! npm run build; then
+    puts-warn "Failed to build client."
+    exit 1
+  fi
+}
+
+puts-step "Installing nodejs"
+install_nodejs "$BUILD_DIR/.heroku/node"
+
+puts-step "Adding nodejs to PATH"
+export PATH="$BUILD_DIR/.heroku/node/bin":$PATH
+
+puts-step "Building front..."
+if ! build_front "$BUILD_DIR/client"; then 
+  puts-warn "Failed to build front."
+  exit 1
+fi

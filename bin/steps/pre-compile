@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source "$BIN_DIR/utils"
+# shellcheck source=bin/steps/front
+source "$BIN_DIR/front"
+
+copy_from_server() {
+  local name="${1:?}"
+
+  if [ -f "$BUILD_DIR/server/$name" ]; then
+    puts-step "Copying $name to $BUILD_DIR"
+    if ! cp "$BUILD_DIR/server/$name" "$BUILD_DIR"; then 
+      puts-warn "$!"
+      exit 1
+    fi
+  fi
+}
+
+copy_from_server 'requirements.txt'
+copy_from_server 'Pipfile'
+copy_from_server 'setup.py'
