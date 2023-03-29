@@ -39,11 +39,14 @@ build_front() {
   fi
 }
 
+NODE_DIR_PATH="$BUILD_DIR/.heroku/node"
+
 puts-step "Installing nodejs"
-install_nodejs "$BUILD_DIR/.heroku/node"
+mkdir -p "$NODE_DIR_PATH"
+install_nodejs "$NODE_DIR_PATH"
 
 puts-step "Adding nodejs to PATH"
-export PATH="$BUILD_DIR/.heroku/node/bin":$PATH
+export PATH="$NODE_DIR_PATH/bin":$PATH
 
 puts-step "Building front..."
 if ! build_front "$BUILD_DIR/client"; then 
