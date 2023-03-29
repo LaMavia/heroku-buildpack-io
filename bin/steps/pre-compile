@@ -9,7 +9,6 @@ copy_from_server() {
   local src 
   local dist
 
-
   src="$BUILD_DIR/server/$name"
   dist="$BUILD_DIR/$name"
 
@@ -20,14 +19,11 @@ copy_from_server() {
   if [ -f "$src" ]; then
     puts-step "Copying $name to $BUILD_DIR"
 
-    if [ -f "$dist" ]; then
-      rm "$src"
-    fi
-
-    if ! cp "$src" "$dist"; then
-      puts-warn "$!"
-      exit 1
-    fi
+    cp --remove-destination "$src" "$dist"
+    # if ! ; then
+    #   puts-warn "$!"
+    #   exit 1
+    # fi
   else
     puts-warn "Couldn't find file $src."
     exit 1
