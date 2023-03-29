@@ -18,7 +18,7 @@ install_nodejs() {
   fi
 
   rm -rf "${dir:?}"/*
-  tar xzf /tmp/node.tar.xz --strip-components 1 -C "$dir"
+  tar xvf /tmp/node.tar.xz --strip-components 1 -C "$dir"
   chmod +x "$dir"/bin/*
 }
 
