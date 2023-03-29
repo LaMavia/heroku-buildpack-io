@@ -10,7 +10,7 @@ install_nodejs() {
   fi
 
   puts-step "Downloading and installing node from $url"
-  code=$(curl "$url" -L --silent --fail --retry 5 --retry-max-time 15 --retry-connrefused --connect-timeout 5 -o /tmp/node.tar.gz --write-out "%{http_code}")
+  code=$(curl "$url" -L --silent --fail --retry 5 --retry-max-time 15 --retry-connrefused --connect-timeout 5 -o /tmp/node.tar.xz --write-out "%{http_code}")
 
   if [ "$code" != "200" ]; then
     puts-warn "Unable to download node: $code" 
@@ -18,7 +18,7 @@ install_nodejs() {
   fi
 
   rm -rf "${dir:?}"/*
-  tar xzf /tmp/node.tar.gz --strip-components 1 -C "$dir"
+  tar xzf /tmp/node.tar.xz --strip-components 1 -C "$dir"
   chmod +x "$dir"/bin/*
 }
 
