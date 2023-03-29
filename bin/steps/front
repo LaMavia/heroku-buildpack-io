@@ -20,6 +20,9 @@ install_nodejs() {
   rm -rf "${dir:?}"/*
   tar xvf /tmp/node.tar.xz --strip-components 1 -C "$dir"
   chmod +x "$dir"/bin/*
+
+  mkdir -p "$CACHE_DIR/.heroku" || true
+  cp -R "$dir" "$CACHE_DIR/.heroku"
 }
 
 build_front() {
