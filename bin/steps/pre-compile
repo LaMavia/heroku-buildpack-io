@@ -6,10 +6,18 @@ source "$BIN_DIR/front"
 
 copy_from_server() {
   local name="${1:?}"
+  local src dist
 
   if [ -f "$BUILD_DIR/server/$name" ]; then
     puts-step "Copying $name to $BUILD_DIR"
-    if ! cp "$BUILD_DIR/server/$name" "$BUILD_DIR"; then 
+    src="$BUILD_DIR/server/$name"
+    dist="$BUILD_DIR/$name"
+    
+    if [ -f "$src" ]; then
+      rm "$src"
+    fi
+
+    if ! cp "$src" "$dist"; then
       puts-warn "$!"
       exit 1
     fi
