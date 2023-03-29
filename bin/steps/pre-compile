@@ -12,10 +12,6 @@ copy_from_server() {
   src="$BUILD_DIR/server/$name"
   dist="$BUILD_DIR/$name"
 
-  ls "$BUILD_DIR" -la
-  ls "$BUILD_DIR/server" -la
-  cat "$src"
-
   if [ -f "$src" ]; then
     puts-step "Copying $name to $BUILD_DIR"
 
