@@ -6,14 +6,16 @@ source "$BIN_DIR/steps/front"
 
 copy_from_server() {
   local name="${1:?}"
-  local src dist
+  local src 
+  local dist
 
-  if [ -f "$BUILD_DIR/server/$name" ]; then
+  src="$BUILD_DIR/server/$name"
+  dist="$BUILD_DIR/$name"
+
+  if [ -f "$src" ]; then
     puts-step "Copying $name to $BUILD_DIR"
-    src="$BUILD_DIR/server/$name"
-    dist="$BUILD_DIR/$name"
 
-    if [ -f "$src" ]; then
+    if [ -f "$dist" ]; then
       rm "$src"
     fi
 
@@ -21,6 +23,9 @@ copy_from_server() {
       puts-warn "$!"
       exit 1
     fi
+  else
+    puts-warn "Couldn't find file $src."
+    exit 1
   fi
 }
 
