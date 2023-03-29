@@ -152,7 +152,8 @@ fi
 # run inline with the buildpack automatically.
 
 # shellcheck source=bin/steps/hooks/pre_compile
-source "$BIN_DIR/steps/hooks/pre_compile"
+puts-step "Runnign pre-compile..."
+source "$BIN_DIR/steps/pre-compile"
 
 # Sticky runtimes. If there was a previous build, and it used a given version of Python,
 # continue to use that version of Python in perpituity (warnings will be raised if
