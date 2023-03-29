@@ -67,5 +67,8 @@ export PATH="$NODE_DIR_PATH/bin":$PATH
 puts-step "Building front..."
 if ! build_front "$BUILD_DIR/client"; then 
   puts-warn "Failed to build front."
+  cd "$BUILD_DIR" || exit 1
   exit 1
 fi
+
+cd "$BUILD_DIR" || exit 1
