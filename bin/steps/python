@@ -197,6 +197,8 @@ if ! curl --silent --show-error --fail --retry 3 --retry-connrefused --connect-t
   exit 1
 fi
 
+pwd
+ls -la "$(pwd)"
 /app/.heroku/python/bin/python "${PIP_WHEEL}/pip" install --quiet --disable-pip-version-check --no-cache-dir \
   "${PIP_WHEEL}" "setuptools==${SETUPTOOLS_VERSION}" "wheel==${WHEEL_VERSION}"
 
