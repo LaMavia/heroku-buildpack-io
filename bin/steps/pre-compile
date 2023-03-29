@@ -22,7 +22,6 @@ copy_from_server() {
     # fi
   else
     puts-warn "Couldn't find file $src."
-    exit 1
   fi
 }
 
