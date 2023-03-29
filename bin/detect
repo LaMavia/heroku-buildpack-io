@@ -17,6 +17,7 @@ BUILD_DIR=$1
 # Exit early if app is clearly not Python.
 echo "Checking $BUILD_DIR $(ls "$BUILD_DIR" -a)..."
 if [ ! -f "$BUILD_DIR/server/requirements.txt" ] && [ ! -f "$BUILD_DIR/server/setup.py" ] && [ ! -f "$BUILD_DIR/Pipfile" ]; then
+  ls "$BUILD_DIR"
   exit 1
 fi
 
