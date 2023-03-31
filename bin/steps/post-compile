@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source "$BIN_DIR/utils"
+
+op 'Preparing migrations...' \
+  "python $BUILD_DIR/manage.py makemigrations" \
+  'Succesfully prepared migrations' \
+  'Failed to prepare migrations' || exit 1
+
+op 'Running migrations' \
+  "python $BUILD_DIR/manage.py migrate" \
+  'Successfully ran migrations' \
+  'Failed to run migrations' || exit 1

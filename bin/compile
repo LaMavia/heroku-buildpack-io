@@ -152,7 +152,7 @@ fi
 # run inline with the buildpack automatically.
 
 # shellcheck source=bin/steps/hooks/pre_compile
-puts-step "Runnign pre-compile..."
+puts-step "Running pre-compile..."
 source "$BIN_DIR/steps/pre-compile"
 
 # Sticky runtimes. If there was a previous build, and it used a given version of Python,
@@ -316,7 +316,8 @@ cp "$ROOT_DIR/vendor/python.gunicorn.sh" "$GUNICORN_PROFILE_PATH"
 
 # Experimental post_compile hook. Don't remove this.
 # shellcheck source=bin/steps/hooks/post_compile
-source "$BIN_DIR/steps/hooks/post_compile"
+puts-step "Running post-compile..."
+source "$BIN_DIR/steps/post-compile"
 
 # Store new artifacts in the cache.
 rm -rf "$CACHE_DIR/.heroku/python"
